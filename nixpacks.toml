@@ -4,13 +4,7 @@ providers = ["python"]
 NIXPACKS_PYTHON_VERSION = "3.10"
 
 [phases.setup]
-nixPkgs = ["python310", "gcc", "stdenv.cc.cc.lib", "zlib"]
-
-[phases.install]
-cmds = [
-    "python -m venv /opt/venv",
-    "/opt/venv/bin/pip install -r backend/requirements.txt"
-]
+nixPkgs = ["python310", "gcc"]
 
 [start]
-cmd = "/opt/venv/bin/python -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT"
+cmd = "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"

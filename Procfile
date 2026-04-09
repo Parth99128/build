@@ -1,1 +1,1 @@
-web: bash -c "cd backend && /opt/venv/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+web: /opt/venv/bin/python -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT

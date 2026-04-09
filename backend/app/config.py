@@ -3,7 +3,14 @@ import os
 SECRET_KEY = os.getenv("SECRET_KEY", "CHANGE_ME_IN_PRODUCTION_use_openssl_rand_hex_32")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./buildpro.db")
+
+raw_db_url = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./buildpro.db")
+if raw_db_url.startswith("postgres://"):
+    DATABASE_URL = raw_db_url.replace("postgres://", "postgresql+psycopg://", 1)
+elif raw_db_url.startswith("postgresql://"):
+    DATABASE_URL = raw_db_url.replace("postgresql://", "postgresql+psycopg://", 1)
+else:
+    DATABASE_URL = raw_db_url
 
 # AI keys — leave blank, user fills later
 AI_PROVIDER = os.getenv("AI_PROVIDER", "")  # openai | gemini | custom

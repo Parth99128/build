@@ -41,3 +41,4 @@ build/
 # Secrets
 .env.production.local
 secrets.json
+venv/
